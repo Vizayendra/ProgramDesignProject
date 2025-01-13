@@ -62,9 +62,7 @@ while True:
                     check_place(guess[i], wordle[i], i+1)
                 # User's next guess
                 guess = input("Enter a word: ")
-                while len(guess) != 5:
-                    print("Invalid input! Please try again.")
-                    guess = input("Enter a word: ")
+
         break
     elif ready == "N":
         print("That's okay! Take your time.")
