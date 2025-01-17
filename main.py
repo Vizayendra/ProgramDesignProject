@@ -3,7 +3,7 @@
 # Course: CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN 
 # Lecture / Lab Section: TC1L / TL7L 
 # Trimester: 2430 
-# Names: Zul Fadhli Bin Zaiman | Vizayendra A/L V. Nadarajah
+# Names: Zul Fadhli Bin Zaiman | Vizayendra A/L Mogan
 # IDs: 241FC24001 | 241FC240K1  
 # Emails: ZUL.FADHLI.BIN.ZAIMAN@student.mmu.edu.my | VIZAYENDRA.MOGAN@student.mmu.edu.my
 # *************************************************************************
