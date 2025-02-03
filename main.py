@@ -25,9 +25,7 @@ time.sleep(2.5)
 print("The code will let you know if letters are correct\n and/or in the correct position.")
 time.sleep(2)
 
-# Asks user if they are ready to play
 ready = input(f"Are you ready, " + username.capitalize() +"? Y/N (cap-sensitive): ")
-
 # Function to save the game state
 def save_game(username, difficulty, secret_word, attempts, guesses):
     game_data = {
@@ -82,7 +80,30 @@ def check_place(char_g, char_w, place):
     else:
         return f"{place} letter: wrong letter."
 
+def game_over():
+    print("Thank you for playing Wordle!")
+    print("Goodbye!")
+    print("End of program.")
+
 while True:
+    load = input("Would you like to load a saved game? (Y/N) ")
+    if load == "Y":
+        loaded_game = load_game(username)
+        if loaded_game is not None:
+            wordle = loaded_game['secret_word']
+            guesses = loaded_game['guesses']
+            for guess_num in range(1, 7):
+                print(f"Attempt {guess_num}: {guesses[guess_num - 1]}")
+            print("Game loaded successfully.")
+            break
+        else:
+            print("Error loading game. Please try again.")
+    elif load == "N":
+        print("That's okay! Let's start a new game.")
+        break
+    else:
+        print("Invalid input! Please try again.")
+
     if ready == "Y":
         print("Great! Let's start!")
         try:
@@ -105,6 +126,7 @@ while True:
 
             if guess == wordle:
                 print("Congratulations! You have guessed the word correctly!")
+                game_over()
                 break
 
             feedback = []
@@ -126,11 +148,5 @@ while True:
             break
     elif ready == "N":
         print("That's okay! Take your time.")
-        break
     else:
         print("Invalid input! Please try again.")
-    break
-
-print("Thank you for playing Wordle!")
-print("Goodbye!")
-print("End of program.")
