@@ -1,0 +1,10 @@
+{
+    "username": "1258",
+    "secret_word": "Apple",
+    "attempts": 3,
+    "guesses": [
+        "Stars",
+        "Track",
+        "Sharp"
+    ]
+}
