@@ -25,8 +25,6 @@ time.sleep(2.5)
 print("The code will let you know if letters are correct\n and/or in the correct position.")
 time.sleep(2)
 
-ready = input(f"Are you ready, " + username.capitalize() +"? Y/N (cap-sensitive): ")
-# Function to save the game state
 def save_game(username, difficulty, secret_word, attempts, guesses):
     game_data = {
         'username': username,
@@ -48,7 +46,6 @@ def save_game(username, difficulty, secret_word, attempts, guesses):
     except Exception as e:
         print(f"Error saving game: {e}")
 
-# Function to load a saved game state
 def load_game(username):
     save_dir = 'saves'
     save_file = f"{username}_checkpoint.json"
@@ -71,8 +68,7 @@ def load_game(username):
         print(f"No saved game found for {username} at {full_path}.")
         return None
 
-# Defines the 'check for correct place' function
-def check_place(char_g, char_w, place):
+def check_place(char_g, char_w, place, wordle):
     if char_g == char_w:
         return f"{place} letter: right letter, right place!"
     elif char_g in wordle:
@@ -86,43 +82,48 @@ def game_over():
     print("End of program.")
 
 while True:
-    load = input("Would you like to load a saved game? (Y/N) ")
-    if load == "Y":
-        loaded_game = load_game(username)
-        if loaded_game is not None:
-            wordle = loaded_game['secret_word']
-            guesses = loaded_game['guesses']
-            for guess_num in range(1, 7):
-                print(f"Attempt {guess_num}: {guesses[guess_num - 1]}")
-            print("Game loaded successfully.")
-            break
-        else:
-            print("Error loading game. Please try again.")
-    elif load == "N":
-        print("That's okay! Let's start a new game.")
-        break
-    else:
-        print("Invalid input! Please try again.")
-
+    ready = input(f"Are you ready, " + username.capitalize() +"? Y/N (cap-sensitive): ")
     if ready == "Y":
         print("Great! Let's start!")
-        try:
-            with open("MMU_wordle.txt", "r") as file:
-                words = file.read().splitlines()
-        except FileNotFoundError:
-            print("Error: 'MMU_wordle.txt' not found. Please ensure the file is in the same directory.")
-            break
-
-        wordle = random.choice(words)  # Chooses a random word as the Wordle
-        guesses = []  # Initialize an empty list to store guesses
-
-        for guess_num in range(1, 7):
+        while True:
+            load = input("Would you like to load a saved game? (Y/N) ")
+            if load == "Y":
+                loaded_game = load_game(username)
+                if loaded_game is not None:
+                    wordle = loaded_game['secret_word']
+                    guesses = loaded_game['guesses']
+                    attempts = loaded_game['attempts']
+                    for guess_num in range(1, attempts + 1):
+                        print(f"Attempt {guess_num}: {guesses[guess_num - 1]}")
+                    print("Game loaded successfully.")
+                    break  # Break out of the inner loop after loading the game
+                else:
+                    print("Error loading game. Please try again.")
+                    continue
+            elif load == "N":
+                print("That's okay! Let's start a new game.")
+                try:
+                    with open("MMU_wordle.txt", "r") as file:
+                        words = file.read().splitlines()
+                except FileNotFoundError:
+                    print("Error: 'MMU_wordle.txt' not found. Please ensure the file is in the same directory.")
+                    break
+                
+                wordle = random.choice([word for word in words if len(word) == 5])  # Ensure the chosen word is 5 letters long
+                guesses = []  # Initialize an empty list to store guesses
+                attempts = 0  # Initialize attempts
+                break
+            else:
+                print("Invalid input! Please try again.")
+        
+        while True:
             guess = input("Enter a word: ")
             while len(guess) != 5:
                 print("Invalid input! Please try again.")
                 guess = input("Enter a word: ")
 
             guesses.append(guess)  # Add the guess to the list of guesses
+            attempts += 1  # Increment attempts
 
             if guess == wordle:
                 print("Congratulations! You have guessed the word correctly!")
@@ -130,22 +131,22 @@ while True:
                 break
 
             feedback = []
-            feedback.append(check_place(guess[0], wordle[0], "First"))
-            feedback.append(check_place(guess[1], wordle[1], "Second"))
-            feedback.append(check_place(guess[2], wordle[2], "Third"))
-            feedback.append(check_place(guess[3], wordle[3], "Fourth"))
-            feedback.append(check_place(guess[4], wordle[4], "Fifth"))
+            feedback.append(check_place(guess[0], wordle[0], "First", wordle))
+            feedback.append(check_place(guess[1], wordle[1], "Second", wordle))
+            feedback.append(check_place(guess[2], wordle[2], "Third", wordle))
+            feedback.append(check_place(guess[3], wordle[3], "Fourth", wordle))
+            feedback.append(check_place(guess[4], wordle[4], "Fifth", wordle))
 
             for fb in feedback:
                 print(fb)
 
             # Save the game state after each guess
-            save_game(username, 'normal', wordle, guess_num, guesses)
+            save_game(username, 'normal', wordle, attempts, guesses)
 
-        if guess != wordle:
-            print(f"You have used up your guesses. The Wordle was " + wordle)
-            print("Try again next time!")
-            break
+            if attempts == 6 and guess != wordle:
+                print(f"You have used up your guesses. The Wordle was " + wordle)
+                print("Try again next time!")
+                break
     elif ready == "N":
         print("That's okay! Take your time.")
     else:
