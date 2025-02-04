@@ -25,10 +25,9 @@ time.sleep(2.5)
 print("The code will let you know if letters are correct\n and/or in the correct position.")
 time.sleep(2)
 
-def save_game(username, difficulty, secret_word, attempts, guesses):
+def save_game(username, secret_word, attempts, guesses):
     game_data = {
         'username': username,
-        'difficulty': difficulty,
         'secret_word': secret_word,
         'attempts': attempts,
         'guesses': guesses
@@ -81,8 +80,8 @@ def game_over():
     print("Goodbye!")
     print("End of program.")
 
-while True:
-    ready = input(f"Are you ready, " + username.capitalize() +"? Y/N (cap-sensitive): ")
+def main():
+    ready = input(f"Are you ready, " + username.capitalize() +"? Y/N (capital letters only): ")
     if ready == "Y":
         print("Great! Let's start!")
         while True:
@@ -141,7 +140,7 @@ while True:
                 print(fb)
 
             # Save the game state after each guess
-            save_game(username, 'normal', wordle, attempts, guesses)
+            save_game(username, wordle, attempts, guesses)
 
             if attempts == 6 and guess != wordle:
                 print(f"You have used up your guesses. The Wordle was " + wordle)
@@ -151,3 +150,5 @@ while True:
         print("That's okay! Take your time.")
     else:
         print("Invalid input! Please try again.")
+        main()
+main()

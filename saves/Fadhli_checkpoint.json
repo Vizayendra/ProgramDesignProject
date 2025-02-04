@@ -1,9 +1,13 @@
 {
     "username": "Fadhli",
-    "difficulty": "normal",
-    "secret_word": "Lucky",
-    "attempts": 1,
+    "secret_word": "Night",
+    "attempts": 6,
     "guesses": [
-        "Stars"
+        "Apple",
+        "Cloud",
+        "Blaze",
+        "Break",
+        "Smile",
+        "Light"
     ]
 }

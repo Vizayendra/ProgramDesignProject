@@ -1,9 +1,9 @@
 {
     "username": "Zul",
-    "difficulty": "normal",
-    "secret_word": "Quiet",
-    "attempts": 1,
+    "secret_word": "Shape",
+    "attempts": 2,
     "guesses": [
-        "Stars"
+        "Stars",
+        "shape"
     ]
 }
