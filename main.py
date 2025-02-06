@@ -1,5 +1,5 @@
 # ************************************************************************* 
-# Program: main.py 
+# Program: TL5_9.py 
 # Course: CSP1114 PROBLEM SOLVING AND PROGRAM DESIGN 
 # Lecture / Lab Section: TC1L / TL7L 
 # Trimester: 2430 
@@ -24,6 +24,8 @@ print("Enter a FIVE-LETTER word of that language.\nYou will be given feedback on
 time.sleep(2.5)
 print("The code will let you know if letters are correct\n and/or in the correct position.")
 time.sleep(2)
+print("You have 6 attempts to guess the word.\nYou need to open the file 'MMU_wordle.txt' to get the words.")
+time.sleep(2.5)
 
 def save_game(username, secret_word, attempts, guesses):
     game_data = {
