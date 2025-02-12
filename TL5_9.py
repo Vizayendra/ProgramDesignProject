@@ -55,7 +55,7 @@ def load_game(username):
         try:
             with open(full_path, 'r') as f:
                 game_data = json.load(f)
-            required_fields = {'username', 'difficulty', 'secret_word', 'attempts', 'guesses'}
+            required_fields = {'username', 'secret_word', 'attempts', 'guesses'}
             if required_fields.issubset(game_data.keys()):
                 print(f"Game loaded successfully for {username}.")
                 return game_data
