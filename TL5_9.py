@@ -144,7 +144,7 @@ def main():
             # Save the game state after each guess
             save_game(username, wordle, attempts, guesses)
 
-            if attempts == 6 and guess != wordle:
+            if attempts >= 6 and guess != wordle:
                 print(f"You have used up your guesses. The Wordle was " + wordle)
                 print("Try again next time!")
                 break

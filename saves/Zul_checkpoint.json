@@ -1,9 +1,14 @@
 {
     "username": "Zul",
     "secret_word": "Frost",
-    "attempts": 2,
+    "attempts": 7,
     "guesses": [
+        "Lucky",
+        "Blaze",
         "Apple",
-        "Light"
+        "Grace",
+        "Sharp",
+        "River",
+        "Stone"
     ]
 }
